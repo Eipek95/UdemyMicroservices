@@ -22,6 +22,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FreeCourse.IdentityServer", "IdentityServer\FreeCourse.IdentityServer\FreeCourse.IdentityServer.csproj", "{EB9E0B83-FED1-469C-BC18-F39BFF4B9670}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PhotoStock", "PhotoStock", "{B8102915-0F98-4A6A-8D67-14BD17FD0010}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FreeCourse.Services.PhotoStock", "Services\PhotoStock\FreeCourse.Services.PhotoStock\FreeCourse.Services.PhotoStock.csproj", "{BD0578FD-3340-4402-B977-2B13E641AEAB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +44,10 @@ Global
 		{EB9E0B83-FED1-469C-BC18-F39BFF4B9670}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB9E0B83-FED1-469C-BC18-F39BFF4B9670}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB9E0B83-FED1-469C-BC18-F39BFF4B9670}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD0578FD-3340-4402-B977-2B13E641AEAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD0578FD-3340-4402-B977-2B13E641AEAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD0578FD-3340-4402-B977-2B13E641AEAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD0578FD-3340-4402-B977-2B13E641AEAB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -49,6 +57,8 @@ Global
 		{3C2EA277-9AC5-4B52-9FF5-ED156C67A21F} = {89A9C3F3-E5D5-450D-BD41-9D714FDA91EF}
 		{E8C22EEB-F9F6-4D0B-B44C-6085A2BC3632} = {1CDFC347-74BE-4C8D-9978-167F79D2243E}
 		{EB9E0B83-FED1-469C-BC18-F39BFF4B9670} = {3992B0D9-0ED8-4933-82A1-08C9F9FBEF8A}
+		{B8102915-0F98-4A6A-8D67-14BD17FD0010} = {2E9336FA-70D9-4370-911D-785535358605}
+		{BD0578FD-3340-4402-B977-2B13E641AEAB} = {B8102915-0F98-4A6A-8D67-14BD17FD0010}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {547D57A6-4368-4687-80B7-9C0C886FB562}

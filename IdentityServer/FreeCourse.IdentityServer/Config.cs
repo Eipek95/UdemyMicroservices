@@ -4,12 +4,14 @@
 
 using IdentityServer4;
 using IdentityServer4.Models;
+using System;
 using System.Collections.Generic;
 
 namespace FreeCourse.IdentityServer
 {
     public static class Config
     {
+        //api için token bilgileri
         public static IEnumerable<ApiResource> ApiResources =>
             new ApiResource[]
         {
@@ -17,9 +19,23 @@ namespace FreeCourse.IdentityServer
             new ApiResource("photo_stock_catalog"){Scopes={"photo_stock_fullpermission"}},
             new ApiResource(IdentityServerConstants.LocalApi.ScopeName)
         };
+        //kullanıcı için token bilgileri
         public static IEnumerable<IdentityResource> IdentityResources =>
                    new IdentityResource[]
                    {
+                       new IdentityResources.Email(),//email olmak zorunda değil.sadece tokenin erişebilmesi için izin veriyoruz
+                       new IdentityResources.OpenId(),//openid olmak zorunda.kullanıcı id
+                       new IdentityResources.Profile(),//profile bilgilerine,olmak zorunda değil
+                       new IdentityResource()
+                       {
+                           Name="roles",
+                           DisplayName="Roles",
+                           Description="Kullanıcı Rolleri",
+                           UserClaims = new[]
+                           {
+                               "role"
+                           }
+                       }
                    };
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -42,10 +58,35 @@ namespace FreeCourse.IdentityServer
                     AllowedScopes =
                     {
                         "catalog_fullpermission",
-                        "photo_stock_catalog",
+                        "photo_stock_fullpermission",
                         IdentityServerConstants.LocalApi.ScopeName
                     }
+                },
+                 new Client
+                {
+                    ClientName = "Asp.Net Core MVC",
+                    ClientId="WebMvcClientForUser",
+                    AllowOfflineAccess=true,
+                    ClientSecrets={new Secret("secret".Sha256()) },
+                    AllowedGrantTypes=GrantTypes.ResourceOwnerPassword,
+                    AllowedScopes =
+                    {
+                        IdentityServerConstants.StandardScopes.Email,
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        IdentityServerConstants.StandardScopes.OfflineAccess,
+                        IdentityServerConstants.LocalApi.ScopeName,
+                         "roles"
+                    },
+                    AccessTokenLifetime=1*60*60,//1 saatlik
+                    RefreshTokenExpiration=TokenExpiration.Absolute,
+                     AbsoluteRefreshTokenLifetime = (int)(
+                         DateTime.UtcNow.AddDays(60)-DateTime.Now
+                     ).TotalSeconds,//60 günlük token.refresh token ömrü
+                     RefreshTokenUsage=TokenUsage.ReUse//tekrar kullanalılabilir
                 }
             };
+
+
     }
 }

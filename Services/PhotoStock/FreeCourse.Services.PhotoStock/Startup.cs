@@ -1,6 +1,3 @@
-using FreeCourse.Services.Catalog.Services.CategoryServices;
-using FreeCourse.Services.Catalog.Services.CourseServices;
-using FreeCourse.Services.Catalog.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,10 +5,9 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 
-namespace FreeCourse.Services.Catalog
+namespace FreeCourse.Services.PhotoStock
 {
     public class Startup
     {
@@ -25,42 +21,24 @@ namespace FreeCourse.Services.Catalog
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //catalog.api token ile koruma altýna alma
+            //apiyi koruma altýna alma token için
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.Authority = Configuration["IdentityServerURL"];//token daðýtan yer.appsetting
-                options.Audience = "resource_catalog";//bu isim identityserver projesi içindeki config dosyasýnda tanýmlý
+                options.Audience = "photo_stock_catalog";//bu isim identityserver projesi içindeki config dosyasýnda tanýmlý
                 options.RequireHttpsMetadata = false;//https olarak çalýþtýrmadýgýmýz icin projeyi onu belirtik
 
             });
 
 
-            services.AddScoped<ICategoryService, CategoryService>();
-            services.AddScoped<ICourseService, CourseService>();
-
-
-            IServiceCollection serviceCollection = services.AddAutoMapper(typeof(Startup));
             services.AddControllers(opt =>
             {
                 opt.Filters.Add(new AuthorizeFilter());//tüm controller auth atrribute iþlendi
             });
-
-
-
-            services.Configure<DatabaseSettings>(Configuration.GetSection("DatabaseSettings"));//configden datalarý okur ve alýr
-            services.AddSingleton<IDatabaseSettings>(sp =>
-            {
-                return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;//aldýðý datalarý databasetting içinde doldurarak bize verir
-            });
-
-
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FreeCourse.Services.Catalog", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "FreeCourse.Services.PhotoStock", Version = "v1" });
             });
-
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -70,11 +48,11 @@ namespace FreeCourse.Services.Catalog
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FreeCourse.Services.Catalog v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "FreeCourse.Services.PhotoStock v1"));
             }
 
+            app.UseStaticFiles();
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
