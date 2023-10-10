@@ -25,7 +25,7 @@ namespace FreeCourse.Services.PhotoStock
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>
             {
                 options.Authority = Configuration["IdentityServerURL"];//token daðýtan yer.appsetting
-                options.Audience = "photo_stock_catalog";//bu isim identityserver projesi içindeki config dosyasýnda tanýmlý
+                options.Audience = "resource_photo_stock";//bu isim identityserver projesi içindeki config dosyasýnda tanýmlý
                 options.RequireHttpsMetadata = false;//https olarak çalýþtýrmadýgýmýz icin projeyi onu belirtik
 
             });
